@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="SUDOKU">
+    <head>
+        <meta charset=UTF-8"/>
+        <title>SUDOKU APP</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.3.1/sweetalert2.css">
+        <link rel="stylesheet" href="grid/sudoku-grid.css">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.3.1/sweetalert2.min.js"></script>
+
+        <script src="sudoku.js"></script>
+        <script src="sudoku-service.js"></script>
+        <script src="sudoku-solver.js"></script>
+        <script src="grid/sudoku-grid.js"></script>
+    </head>
+
+    <body ng-controller="SudokuController">
+        <header>
+            <h1 style="text-align: center;"> WELCOME TO SUDOKU ARENA </h1>
+        </header>
+        <h3 style="text-align: center;"> Test cases for the app can be found <a href="../test/sudoku-test.html">here.</a></h3>
+
+        <sudoku-grid grid="grid"></sudoku-grid>
+    </body>
+</html>
