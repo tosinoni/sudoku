@@ -1,6 +1,6 @@
 'use strict';
 
-function sudokuGridController($scope, $element, $attrs, sudokuService) {
+function sudokuGridController($scope, $element, $attrs, sudokuService, sudokuSolver) {
     var ctrl = this;
     ctrl.originalGrid = angular.copy(ctrl.grid);
 
@@ -31,8 +31,14 @@ function sudokuGridController($scope, $element, $attrs, sudokuService) {
         if (!$scope.frm.$valid) {
             swal("Oops", "The grid is having some issues", "error");
         } else {
-            swal("Yaaah", "Puzzle has been solved", "success");
             console.log("solving the puzzle");
+            var modelGrid = sudokuService.getModelGrid(ctrl.grid);
+            var parsedGrid = sudokuSolver.parseGrid(modelGrid);
+            var solvedGrid = sudokuSolver.solve(parsedGrid);
+
+            console.log(solvedGrid);
+            ctrl.grid = sudokuService.getGridForDisplay(solvedGrid);
+            swal("Yaaah", "Puzzle has been solved", "success");
         }
     }
 

@@ -181,8 +181,7 @@ angular.module('SUDOKU')
       *      [[{ id: B1, val: ''}, { id: B2, val: 3}.....]..]
       */
 
-      function getGridForDisplay(gridSequence) {
-        var grid = createGrid(gridSequence);
+      function getGridForDisplay(grid) {
         var gridRows = [];
 
         for (var r of rows) {
@@ -192,7 +191,7 @@ angular.module('SUDOKU')
                 col.id = r + c;
                 var value = grid[col.id];
 
-                col.val = value !== 0 ? value : undefined;
+                col.val = value !== 0 ? Number(value) : undefined;
                 cols.push(col);
             }
 
@@ -211,7 +210,7 @@ angular.module('SUDOKU')
             var grid = {};
             for (var row of displayGrid) {
                 for (var col of row) {
-                    grid[col.id] = col.val;
+                    grid[col.id] = col.val ?  col.val.toString() : undefined;
                 }
             }
 
