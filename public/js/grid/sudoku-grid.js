@@ -59,7 +59,7 @@ function sudokuGridController($scope, $element, $attrs, sudokuService, sudokuSol
 angular.module('SUDOKU')
   .component('sudokuGrid', {
     restrict: 'E',
-    templateUrl: './grid/sudoku-grid.html',
+    templateUrl: '/views/sudoku-grid.html',
     controller: sudokuGridController,
     bindings: {
         grid: '='

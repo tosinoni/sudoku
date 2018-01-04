@@ -1,0 +1,22 @@
+{
+  "name": "sudoku_solution",
+  "version": "0.3.0",
+  "description": "A sample Node.js app using Express 4",
+  "engines": {
+    "node": "8.9.1"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "angular": "^1.5.6",
+    "ejs": "^2.5.6",
+    "express": "^4.15.2",
+    "sweetalert2": "^7.3.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tosinoni/sudoku.git"
+  }
+}

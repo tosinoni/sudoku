@@ -1,1 +1,1 @@
-# sudoku
+# A sudoku solver app
