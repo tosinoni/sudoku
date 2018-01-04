@@ -1,18 +1,10 @@
 <div>
-    <form name="frm" ng-submit="$ctrl.solve()">
         <table>
             <tr ng-repeat="row in $ctrl.grid">
                     <td  ng-repeat="col in row">
                         <input type="number" name="{{col.id}}" ng-model="col.val" ng-change="$ctrl.change()"
-                               value="{{col.val}}" maxlength="1" min="1">
+                               ng-disabled="$ctrl.disable" value="{{col.val}}" maxlength="1" min="1">
                     </td>
             </tr>
         </table>
-
-        <div class="btn-box">
-            <button type="submit" class="btn btn-submit" ng-disabled="frm.$invalid">Solve</button>
-            <button type="reset" class="btn btn-reset" ng-click="$ctrl.reset()">Reset</button>
-        </div>
-
-    </form>
 </div>

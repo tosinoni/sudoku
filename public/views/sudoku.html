@@ -21,6 +21,12 @@
         </header>
         <h3 style="text-align: center;"> Test cases for the app can be found <a href="/views/sudoku-test.html">here.</a></h3>
 
-        <sudoku-grid grid="grid"></sudoku-grid>
+            <div class="center">
+                <form name="frm" ng-submit="solve()" class="inline">
+                    <sudoku-grid grid="grid" change-fn="change()" class="inline"></sudoku-grid>
+                    <button type="submit" class="btn btn-submit inline" ng-disabled="frm.$invalid">Solve</button>
+                </form>
+                <sudoku-grid grid="solvedGrid" disable=true class="inline"></sudoku-grid>
+            </div>
     </body>
 </html>

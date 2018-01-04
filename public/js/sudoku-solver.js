@@ -120,9 +120,6 @@ angular.module('SUDOKU')
         //choose the best square to expand
         var bestSquare = getBestSquare(grid);
 
-        console.log(bestSquare);
-        console.log(grid);
-
         //search for the right value to fill in the square from the possible values
         if (bestSquare) {
             for (var sqrValue of bestSquare.values) {
