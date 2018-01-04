@@ -21,20 +21,19 @@ describe('Sudoku Solver factory', function() {
     });
 
     it('testing parseGrid method', function() {
+        expect(Object.keys(parsedGrid).length).toEqual(81);
         expect(parsedGrid['A2']).toEqual('1679');
     });
 
     it('testing getBestSquare method', function() {
-        console.log(parsedGrid);
         var bestSquare = sudokuSolver.getBestSquare(parsedGrid);
-        console.log(bestSquare);
         expect(bestSquare.square).toEqual('G2');
         expect(bestSquare.values).toEqual('89');
     });
 
     it('testing solve method with a medium puzzle', function() {
+        var expectedSolution = "417369825632158947958724316825437169791586432346912758289643571573291684164875293"
         var solvedGrid = sudokuSolver.solve(parsedGrid);
-        console.log(solvedGrid)
-        expect(solvedGrid).toBeDefined();
+        expect(Object.values(solvedGrid).join('')).toEqual(expectedSolution);
     });
 });

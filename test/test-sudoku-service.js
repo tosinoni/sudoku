@@ -11,6 +11,14 @@ describe('Sudoku Service factory', function() {
         expect(sudokuService).toBeDefined();
     });
 
+    it('test rows variable', function() {
+        expect(sudokuService.rows).toEqual("ABCDEFGHI");
+    });
+
+    it('test columns variable', function() {
+        expect(sudokuService.columns).toEqual("123456789");
+    });
+
     it('testing get squares method', function() {
         var squares = sudokuService.getSquares();
         var expectedSquares = ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9',
@@ -137,5 +145,27 @@ describe('Sudoku Service factory', function() {
         var status = sudokuService.isSequenceValidForSquare(grid, 'A1', grid['A1']);
 
         expect(status).toEqual(true);
+    });
+
+    it('testing getGridForDisplay method', function() {
+        var gridSequence = "4.....8.5.3..........7......2.....6.....8.4......1.......6.3.7.5..2.....1.4......";
+        var displayGrid = sudokuService.getGridForDisplay(gridSequence);
+
+        expect(displayGrid).toBeDefined();
+        expect(displayGrid.length).toEqual(9);
+        expect(displayGrid[0].length).toEqual(9);
+        expect(displayGrid[0][0].id).toEqual('A1');
+        expect(displayGrid[0][0].val).toEqual(4);
+    });
+
+    it('testing getModelGrid method', function() {
+        var gridSequence = "4.....8.5.3..........7......2.....6.....8.4......1.......6.3.7.5..2.....1.4......";
+        var displayGrid = sudokuService.getGridForDisplay(gridSequence);
+
+        var modelGrid = sudokuService.getModelGrid(displayGrid);
+
+        expect(modelGrid).toBeDefined();
+        expect(Object.keys(modelGrid).length).toEqual(81);
+        expect(modelGrid['A1']).toEqual('4');
     });
 });

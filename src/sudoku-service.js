@@ -8,7 +8,6 @@ angular.module('SUDOKU')
     //defining the columns in a sudoku board
     var columns = "123456789";
 
-
     /*
     * This function is for performing the cross product of two arrays
     */
@@ -182,6 +181,11 @@ angular.module('SUDOKU')
       */
 
       function getGridForDisplay(grid) {
+        //if the grid is a sequence. convert it to a grid object;
+        if (typeof grid === "string") {
+            grid = createGrid(grid);
+        }
+
         var gridRows = [];
 
         for (var r of rows) {
@@ -189,8 +193,9 @@ angular.module('SUDOKU')
             for (var c of columns) {
                 var col = {};
                 col.id = r + c;
-                var value = grid[col.id];
+                var value = grid ? grid[col.id] : undefined;
 
+                //0 signifies empty space. so we make the square undefined.
                 col.val = value !== 0 ? Number(value) : undefined;
                 cols.push(col);
             }
@@ -204,7 +209,6 @@ angular.module('SUDOKU')
       /**
       * This function converts a display grid to a model grid
       */
-
       function getModelGrid(displayGrid) {
         if (displayGrid) {
             var grid = {};

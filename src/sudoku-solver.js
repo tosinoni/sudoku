@@ -2,18 +2,12 @@
 
 angular.module('SUDOKU')
   .factory('sudokuSolver', function(sudokuService) {
-    /*
-    * This function checks a grid state to see if the puzzle has been solved.
-    */
-    function isPuzzleSolved(grid) {
-        for (var sqr of sudokuService.getSquares()) {
-            var val = grid[sqr];
-            if(val.length > 1) {
-                return false;
-            }
-        }
-        return true;
-    };
+    var INVALID_STATUS = 'invalid',
+        SOLVED_STATUS = 'solved',
+        UNSOLVED_STATUS = 'unsolved';
+
+    //peers of a sudoku grid
+    var sudokuGridPeers = sudokuService.getPeers();
 
     /*
     * This function gets all the possible value a square can take.
@@ -56,7 +50,6 @@ angular.module('SUDOKU')
              var possibleValuesOfSqr = grid[sqr];
 
             if (possibleValuesOfSqr.length > 1) {
-                //get the number of possible values for the square
                 if (!minValue || possibleValuesOfSqr.length < minValue) {
                     bestSquare = {square : sqr, values: possibleValuesOfSqr};
                     minValue = possibleValuesOfSqr.length;
@@ -68,22 +61,23 @@ angular.module('SUDOKU')
     };
 
     /*
-    *
+    * This function assigns value to square.
     */
     function assignValueToSquare(grid, sqr, val) {
         grid[sqr] = val;
+
+        //if the square only has 1 value. We need to eliminate that value from peer squares.
         if(val.length == 1) {
-            var peersOfSqr = sudokuService.getPeers()[sqr];
+            var peersOfSqr = sudokuGridPeers[sqr];
 
             for(var peer of peersOfSqr) {
                 for (var peerSqr of peer) {
-                    var str = '' + grid[peerSqr];
-
-                    if (str.indexOf(val) > -1) {
-                        var valueOfPeer = str.replace(val, '');
-                        assignValueToSquare(grid, peerSqr, valueOfPeer);
+                    var peerSqrVal = grid[peerSqr];
+                    //if the value to be assigned is present in peer. eliminate and reasssign
+                    if (peerSqrVal.indexOf(val) > -1) {
+                        peerSqrVal = peerSqrVal.replace(val, '');
+                        assignValueToSquare(grid, peerSqr, peerSqrVal);
                     }
-
                 }
             }
         }
@@ -93,26 +87,33 @@ angular.module('SUDOKU')
     /*
     * This function checks a grid state to see if the puzzle has been solved.
     */
-    function isGridValid(grid) {
+    function checkGridStatus(grid) {
         for (var sqr of sudokuService.getSquares()) {
-            if (!grid[sqr]) {
-                return false;
+            if(!grid[sqr]) {
+                return INVALID_STATUS;
+            } else if (grid[sqr].length > 1) {
+                return UNSOLVED_STATUS;
             }
         }
-        return true;
+
+        return SOLVED_STATUS;
     };
+
     /*
     * This function solves a sudoku puzzle. The grid should be a parsed grid.call the parsed grid method
     * The solver using the Uniform cost search algorithm which expands the least cost unexpanded node.
     */
     function solve(grid) {
-        //if the grid is empty, it means there is no solution
-        if (!isGridValid(grid)) {
+        //get the grid status
+        var gridStatus = checkGridStatus(grid);
+
+        //if the grid is not valid. no point of solving
+        if (gridStatus === INVALID_STATUS) {
             return;
         }
 
         //return the grid if the puzzle is solved
-        if (isPuzzleSolved(grid)) {
+        if (gridStatus === SOLVED_STATUS) {
             return grid;
         }
 
@@ -123,17 +124,16 @@ angular.module('SUDOKU')
         if (bestSquare) {
             for (var sqrValue of bestSquare.values) {
                var cloneGrid = angular.copy(grid);
-
                 assignValueToSquare(cloneGrid, bestSquare.square, sqrValue);
+                //recurse over that square using the modified grid
                 var gridsReturnedFromSearch = solve(cloneGrid);
 
+                //if the grid returned is defined. we might have a possible solution
                 if (gridsReturnedFromSearch) {
                     return gridsReturnedFromSearch;
                 }
             }
         }
-
-        return;
     };
 
     return {
