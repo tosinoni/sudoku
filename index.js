@@ -5,6 +5,8 @@ const PORT = process.env.PORT || 5000
 express()
   .use(express.static(path.join(__dirname, 'public')))
   .use("/js", express.static(__dirname + '/js'))
+  .use("/css", express.static(__dirname + '/css'))
+  .use("/test", express.static(__dirname + '/test'))
   .use('/lib', express.static(__dirname + '/node_modules'))
   .set('views', __dirname + '/public/views')
   .set('view engine', 'html')
