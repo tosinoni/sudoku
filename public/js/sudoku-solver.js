@@ -74,7 +74,7 @@ angular.module('SUDOKU')
                 for (var peerSqr of peer) {
                     var peerSqrVal = grid[peerSqr];
                     //if the value to be assigned is present in peer. eliminate and reasssign
-                    if (peerSqrVal.indexOf(val) > -1) {
+                    if (peerSqrVal.includes(val)) {
                         peerSqrVal = peerSqrVal.replace(val, '');
                         assignValueToSquare(grid, peerSqr, peerSqrVal);
                     }
@@ -120,11 +120,14 @@ angular.module('SUDOKU')
         //choose the best square to expand
         var bestSquare = getBestSquare(grid);
 
+        console.log(bestSquare);
+        console.log(grid);
+
         //search for the right value to fill in the square from the possible values
         if (bestSquare) {
             for (var sqrValue of bestSquare.values) {
                var cloneGrid = angular.copy(grid);
-                assignValueToSquare(cloneGrid, bestSquare.square, sqrValue);
+                cloneGrid = assignValueToSquare(cloneGrid, bestSquare.square, sqrValue);
                 //recurse over that square using the modified grid
                 var gridsReturnedFromSearch = solve(cloneGrid);
 

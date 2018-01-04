@@ -43,8 +43,13 @@ function sudokuGridController($scope, $element, $attrs, sudokuService, sudokuSol
             var t1 = performance.now();
             var timetakenForAlgorithm = Math.round(t1 - t0)/1000 + " seconds";
 
-            ctrl.grid = sudokuService.getGridForDisplay(solvedGrid);
-            swal("Yaaah", "Puzzle has been solved in " + timetakenForAlgorithm, "success");
+            if (solvedGrid) {
+                ctrl.grid = sudokuService.getGridForDisplay(solvedGrid);
+                swal("Yaaah", "Puzzle has been solved in " + timetakenForAlgorithm, "success");
+            } else {
+                swal("Oops", "solution could not be found", "error");
+            }
+
         }
     }
 
