@@ -1,8 +1,6 @@
 'use strict';
-
 function sudokuGridController($scope, $element, $attrs, sudokuService, sudokuSolver) {
     var ctrl = this;
-    ctrl.originalGrid = angular.copy(ctrl.grid);
 
     // this function verifies a grid on input change for a square
     ctrl.change = function() {
@@ -51,6 +49,7 @@ function sudokuGridController($scope, $element, $attrs, sudokuService, sudokuSol
     }
 
     angular.element(document).ready(function () {
+        ctrl.originalGrid = angular.copy(ctrl.grid);
         ctrl.verifyGrid();
         $scope.$apply();
     });
