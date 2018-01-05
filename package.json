@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "angular": "^1.5.6",
+    "angular-mocks": "^1.6.8",
     "ejs": "^2.5.6",
     "express": "^4.15.2",
+    "jasmine": "^2.8.0",
     "sweetalert2": "^7.3.2"
   },
   "repository": {
