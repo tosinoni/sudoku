@@ -20,6 +20,9 @@ tr:nth-child(3n) td {
   border-bottom:solid ;
 }
 
+body {
+    background-color: #f5f5dc;
+}
 .inline{
     display: inline-flex;
     align-items: center;
