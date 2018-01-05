@@ -53,7 +53,8 @@ angular.module('SUDOKU', [])
     }
 
     angular.element(document).ready(function () {
-        $scope.verifyGrid();
-        $scope.$apply();
+        $scope.$apply(function(){
+            $scope.verifyGrid();
+        });
     });
   });
